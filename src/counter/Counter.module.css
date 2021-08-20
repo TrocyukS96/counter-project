@@ -1,0 +1,55 @@
+.counterBlock{
+
+    width: 500px;
+    height: 460px;
+
+    border:2px solid #8ef82f;
+
+    background-color: #60ac29;
+}
+.title{
+    text-align: center;
+
+    text-transform: uppercase;
+
+    color:lemonchiffon;
+}
+.screen{
+    width: 200px;
+    height: 200px;
+
+    margin: 0 auto;
+
+    border:2px solid #f8cc2f;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 50px;
+
+    background-color: #fff;
+
+
+}
+.screen:hover{
+    background-color: #fbff6d;
+
+    color:royalblue;
+    transition: all .3s ease;
+
+}
+
+.buttonsBlock{
+    margin-top: 2rem;
+    padding: .4rem;
+
+    display: flex;
+    justify-content: space-around;
+
+}
+
+
+.active{
+    color:red;
+}
