@@ -1,0 +1,13 @@
+.screenBlock{
+    padding: 5px;
+    margin-top: 30px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.screenInput{
+    width: 45px;
+
+    font-size: 25px;
+}

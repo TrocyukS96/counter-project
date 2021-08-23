@@ -1,20 +1,33 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './Counter.module.css';
 import Button from "../components/button/Button";
 
-function Counter() {
-  return (
-    <div className={s.counterBlock}>
-      <h1 className={s.title}>Easy Counter</h1>
-        <div className={s.screen}>
-            <span className={s.screenText}>1</span>
+
+type PropsType = {
+    increaseValue: () => void
+    resetValue: () => void
+    value: number
+    error : boolean
+
+}
+
+function Counter(props: PropsType) {
+
+    const getDisabledIncr = props.error ? true : false
+
+    return (
+        <div className={s.counterBlock}>
+            <h1 className={s.title}>Easy Counter</h1>
+            <div className={s.screen}>
+                <span className={props.error ? s.activeNumber : ''}>{props.value}</span>
+
+            </div>
+            <div className={s.buttonsBlock}>
+                <Button title={'Incr'} callBack={props.increaseValue} disabled={getDisabledIncr}/>
+                <Button title={'Reset'} callBack={props.resetValue} disabled={false}/>
+            </div>
         </div>
-        <div className={s.buttonsBlock}>
-            <Button title={'Incr'}/>
-            <Button title={'Reset'}/>
-        </div>
-    </div>
-  );
+    );
 }
 
 export default Counter;
