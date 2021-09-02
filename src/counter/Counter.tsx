@@ -6,20 +6,30 @@ import Button from "../components/button/Button";
 type PropsType = {
     increaseValue: () => void
     resetValue: () => void
+    minValue: number
+    maxValue: number
+    error: boolean
+    showText: boolean
     value: number
-    error : boolean
-
 }
 
 function Counter(props: PropsType) {
 
-    const getDisabledIncr = props.error ? true : false
+    const getDisabledIncr = props.value===props.maxValue ? true : false
 
     return (
         <div className={s.counterBlock}>
             <h1 className={s.title}>Easy Counter</h1>
             <div className={s.screen}>
-                <span className={props.error ? s.activeNumber : ''}>{props.value}</span>
+                <div
+                    className={props.value===props.maxValue ?
+                        s.activeNumber : ''}>{props.showText
+                    ?
+                    <span className={s.screenText}>
+                       {props.error ? 'incorrect value' : 'add value and press Set'}
+                    </span>
+                    :props.value}
+                </div>
 
             </div>
             <div className={s.buttonsBlock}>
