@@ -2,46 +2,47 @@ import React, {useEffect, useState} from 'react';
 import s from './SettingsForCounter.module.css';
 import Button from "../../components/button/Button";
 import ScreenBlock from "./screenBlock/ScreenBlock";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../redux/redux-store";
+import {changeMaxValueAC, changeMinValueAC, setNewCounterSettingsAC} from "../../redux/redux-reducer";
 
 type PropsType ={
-    changeValues:()=>void
-
-    showTextOnScreen:(value:boolean)=>void
-    toSetMaxValue:(inputMaxValue: number)=>void
-    toSetMinValue:(inputMinValue: number)=>void
-    minValue:number
-    maxValue:number
-    setError:(error:boolean)=>void
-    error:boolean
-
 }
+const changeValues = () => {}
 
 function SettingsForCounter(props:PropsType) {
+    const dispatch = useDispatch()
+    const minValue = useSelector<AppStateType, number>(state => state.counter.minValue)
+    const maxValue = useSelector<AppStateType, number>(state => state.counter.maxValue)
+     const counterError = useSelector<AppStateType, boolean>(state => state.counter.error)
 
-    const toDisableButton = props.error ? true : false
+
+    const changeMinValue = (minNum:number) => {
+       dispatch(changeMinValueAC(minNum))
+    }
+    const setNewSettings = () => {
+        dispatch(setNewCounterSettingsAC())
+    }
+    const changeMaxValue = (maxNum:number) => {
+        dispatch(changeMaxValueAC(maxNum))
+    }
     return (
         <div className={s.setBlock}>
             <h1 className={s.title}>Settings for Counter</h1>
             <div className={s.screen}>
-                    <ScreenBlock title={'MinValue'}
-
-                                 showTextOnScreen = {props.showTextOnScreen}
-                                 value={props.minValue}
-                                 changeValue={props.toSetMinValue}
-                                 setError={props.setError}
-                                 error={props.error}
+                    <ScreenBlock
+                        title={'minValue'}
+                        value ={minValue}
+                        changeValue = {changeMinValue}
                     />
-                    <ScreenBlock title={'MaxValue'}
-
-                                 showTextOnScreen = {props.showTextOnScreen}
-                                 value={props.maxValue}
-                                 changeValue={props.toSetMaxValue}
-                                 setError={props.setError}
-                                 error={props.error}
-                    />
+                    <ScreenBlock
+                        title={'maxValue'}
+                        value ={maxValue}
+                        changeValue = {changeMaxValue}
+                                            />
             </div>
             <div className={s.buttonsBlock}>
-                <Button title={'Set'}  callBack={props.changeValues} disabled={toDisableButton} />
+                <Button title={'Set'}  callBack={setNewSettings} disabled={counterError} />
             </div>
         </div>
     );

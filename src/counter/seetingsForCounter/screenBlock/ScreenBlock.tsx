@@ -3,36 +3,26 @@ import s from './ScreenBlock.module.css';
 
 
 type PropsType = {
-    title:string
-    showTextOnScreen:(value:boolean)=>void
-    value:number
-    changeValue:(inputMaxValue: number)=>void
-    setError:(error:boolean)=>void
-    error:boolean
-
+    title: string
+    value: number
+    changeValue:(value:number)=>void
 }
 
 
-function ScreenBlock(props:PropsType) {
+function ScreenBlock(props: PropsType) {
 
-    const onChangeHandler =(e:ChangeEvent<HTMLInputElement>)=>{
-        props.changeValue(JSON.parse(e.currentTarget.value))
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        props.changeValue(+e.currentTarget.value)
     }
-    const onBlurHandler=(e:FocusEvent<HTMLInputElement>)=>{
-        if(e.currentTarget.value){
-            props.showTextOnScreen(true)
+    const onBlurHandler = (e: FocusEvent<HTMLInputElement>) => {
 
-        } else{
-            props.showTextOnScreen(false)
-
-        }
     }
 
     return (
-<div className={s.screenBlock}>
-    <span className={s.screenTitle}>{props.title}</span>
-    <input className={!props.error ? s.screenInput : s.errorInput} type="number" onChange={onChangeHandler} onBlur={onBlurHandler} value={props.value} />
-</div>
+        <div className={s.screenBlock}>
+            <span className={s.screenTitle}>{props.title}</span>
+            <input className={s.screenInput} type="number" onChange={onChangeHandler} onBlur={onBlurHandler} value={props.value}/>
+        </div>
     );
 }
 

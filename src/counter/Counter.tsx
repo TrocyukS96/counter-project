@@ -1,40 +1,38 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import s from './Counter.module.css';
 import Button from "../components/button/Button";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../redux/redux-store";
 
 
 type PropsType = {
-    increaseValue: () => void
-    resetValue: () => void
-    minValue: number
-    maxValue: number
-    error: boolean
-    showText: boolean
-    value: number
+    currentValue: number
+    incrValue: () => void
+    resetValue: (resetNumber: number) => void
 }
 
 function Counter(props: PropsType) {
+    const error = useSelector<AppStateType, boolean>(state => state.counter.error)
 
-    const getDisabledIncr = props.value===props.maxValue ? true : false
-
+    const counterError = useSelector<AppStateType, boolean>(state => state.counter.error)
+    const incrValueHandler = () => {
+        props.incrValue()
+    }
+    const resetValueHandler = () => {
+        props.resetValue(0)
+    }
     return (
         <div className={s.counterBlock}>
             <h1 className={s.title}>Easy Counter</h1>
             <div className={s.screen}>
-                <div
-                    className={props.value===props.maxValue ?
-                        s.activeNumber : ''}>{props.showText
-                    ?
-                    <span className={s.screenText}>
-                       {props.error ? 'incorrect value' : 'add value and press Set'}
-                    </span>
-                    :props.value}
-                </div>
+                <span className={error ? s.error : ''}>
+                    {props.currentValue}
+                </span>
 
             </div>
             <div className={s.buttonsBlock}>
-                <Button title={'Incr'} callBack={props.increaseValue} disabled={getDisabledIncr}/>
-                <Button title={'Reset'} callBack={props.resetValue} disabled={false}/>
+                <Button title={'Incr'} callBack={incrValueHandler} disabled={counterError}/>
+                <Button title={'Reset'} callBack={resetValueHandler} disabled={false}/>
             </div>
         </div>
     );
