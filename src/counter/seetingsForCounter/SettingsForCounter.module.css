@@ -1,18 +1,22 @@
 .setBlock{
 
     width: 500px;
-    height: 460px;
+    height: 530px;
 
-    border:2px solid #8ef82f;
+    /*border:2px solid #8ef82f;*/
 
-    background-color: #60ac29;
+    background-image: url('https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8d2FsbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80');
+
+    position: relative;
+
+    color: #ffffff;
 }
 .title{
     text-align: center;
 
     text-transform: uppercase;
 
-    color:lemonchiffon;
+    color:inherit;
 }
 .screen{
     width: 200px;
@@ -20,7 +24,7 @@
 
     margin: 0 auto;
 
-    border:2px solid #f8cc2f;
+    /*border:2px solid #f8cc2f;*/
 
     display: flex;
     flex-direction: column;
@@ -46,4 +50,20 @@
 
 .active{
     color:red;
+}
+.cancel{
+    font-size: 25px;
+
+    border-style: none;
+    background-color: transparent;
+    color:red;
+
+    font-weight: 500;
+
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.cancel:active{
+    color:black;
 }

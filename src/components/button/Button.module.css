@@ -1,6 +1,5 @@
-.button{
-    width: 200px;
-    height: 100px;
+.button {
+    width: 140px;
 
     background-color: rgba(238, 198, 252, 0.68);
 
@@ -8,12 +7,16 @@
     align-items: center;
     justify-content: center;
 
-    font-size: 3rem;
+    font-size: 2rem;
+    line-height: 2;
+    border-radius: 22px;
 
     transition: all .3s ease;
 
+    border-style: none;
 }
-.button:active{
+
+.button:active {
     background-color: #ff6767;
-    color:#fff;
+    color: #fff;
 }

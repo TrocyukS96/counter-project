@@ -1,27 +1,32 @@
-import React, {ChangeEvent, FocusEvent} from 'react';
+import React, {ChangeEventHandler, FC, useState} from 'react';
 import s from './ScreenBlock.module.css';
-
 
 type PropsType = {
     title: string
+    changeValue: (value: number) => void
     value: number
-    changeValue:(value:number)=>void
 }
 
 
-function ScreenBlock(props: PropsType) {
+export const ScreenBlock: FC<PropsType> = ({title, value, changeValue}) => {
+    //hooks
+    const [number, setNumber] = useState(0)
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.changeValue(+e.currentTarget.value)
+    //handlers
+    const changeValueHandler = (e: any) => {
+        setNumber(e.currentTarget.value)
+        changeValue(e.currentTarget.value)
     }
-    const onBlurHandler = (e: FocusEvent<HTMLInputElement>) => {
 
-    }
 
     return (
         <div className={s.screenBlock}>
-            <span className={s.screenTitle}>{props.title}</span>
-            <input className={s.screenInput} type="number" onChange={onChangeHandler} onBlur={onBlurHandler} value={props.value}/>
+            <span className={s.screenTitle}>{title}</span>
+            <input className={s.screenInput}
+                   type="number"
+                   value={value}
+                   onChange={changeValueHandler}
+            />
         </div>
     );
 }

@@ -1,48 +1,44 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import s from './App.module.css';
-import Counter from "./counter/Counter";
+import {useDispatch} from "react-redux";
 import SettingsForCounter from "./counter/seetingsForCounter/SettingsForCounter";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "./redux/redux-store";
-import {incrValueAC, restValueAC} from "./redux/redux-reducer";
-
+import {Counter} from "./counter/Counter";
+import {counterActions} from "./counter/seetingsForCounter";
+import {SettingsModal} from "./settingsModal/SettingsModal";
 
 function App() {
-    const currentValue  = useSelector<AppStateType, number>(state => state.counter.value)
+    //hooks
     const dispatch = useDispatch()
+    const [open, setOpen] = useState(false)
 
+    //actions
+    const {addValue, resetValue} = counterActions
 
-    const incrValue = () => {
-        dispatch(incrValueAC())
+    //handlers
+    const incrValueFunc = () => {
+        dispatch(addValue())
     }
-    const resetValue = (resetNumber:number) => {
-        dispatch(restValueAC(resetNumber))
+    const resetValueFunc = (resetNumber: number) => {
+        dispatch(resetValue(resetNumber))
     }
-
-    // useEffect(() => {
-    //     let maxValueAsString = localStorage.getItem('maxValue')
-    //     if (maxValueAsString) {
-    //         let newMaxValue = JSON.parse(maxValueAsString)
-    //         setMaxValue(newMaxValue)
-    //     }
-    // }, []) //сработает только один раз при перезагрузке страницы
-    // useEffect(() => {
-    //     let minValueAsString = localStorage.getItem('minValue')
-    //     if (minValueAsString) {
-    //         let newMinValue = JSON.parse(minValueAsString)
-    //         setMinValue(newMinValue)
-    //
-    //     }
-    // }, [])
+    const closeModalHandler = () => {
+        setOpen(false)
+    }
+    const openModalHandler = () => {
+        setOpen(true)
+    }
     return (
         <div className={s.wrap}>
-            <SettingsForCounter
-            />
             <Counter
-                currentValue={currentValue}
-                incrValue={incrValue}
-                resetValue={resetValue}
+                incrValue={incrValueFunc}
+                resetValue={resetValueFunc}
+                openModal={openModalHandler}
             />
+            {open &&
+                <SettingsModal>
+                    <SettingsForCounter closeModal={closeModalHandler}/>
+                </SettingsModal>
+            }
 
         </div>
     );

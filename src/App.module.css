@@ -1,7 +1,11 @@
 .wrap{
     height: 100vh;
 
-    background-color: rgba(98, 116, 163, 0.68);
+    background-image: url('https://img.freepik.com/free-photo/3d-illustration-brick-wall-of-a-street-facade-at-night-entrance-to-the-room-dirty-old-gateway-lamp-background-banner-wallpaper_88088-1017.jpg?w=1060');
+    background-position:center ;
+    background-attachment:fixed ;
+    background-repeat: no-repeat;
+    background-size: cover;
 
     display: flex;
     align-items: center;

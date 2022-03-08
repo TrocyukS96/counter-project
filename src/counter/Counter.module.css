@@ -1,11 +1,13 @@
 .counterBlock{
 
     width: 500px;
-    height: 460px;
+    height: auto;
 
-    border:2px solid #8ef82f;
+    border:2px solid #1c1b1b;
 
-    background-color: #60ac29;
+    background-color: rgba(28, 27, 27, 0.63);
+
+
 }
 .title{
     text-align: center;
@@ -20,7 +22,7 @@
 
     margin: 0 auto;
 
-    border:2px solid #f8cc2f;
+    border:2px solid #ffffff;
 
     display: flex;
     align-items: center;
@@ -30,13 +32,6 @@
 
     background-color: #fff;
 
-
-}
-.screen:hover{
-    background-color: #fbff6d;
-
-    color:royalblue;
-    transition: all .3s ease;
 
 }
 
@@ -59,4 +54,18 @@
     text-align: center;
     font-size: 24px;
 
+}
+.settingsBlock{
+    margin: 30px;
+
+    text-align: center;
+
+
+
+
+}
+.settingsBlock button{
+    font-size:30px;
+
+    padding: 10px;
 }

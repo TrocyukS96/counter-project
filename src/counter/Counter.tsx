@@ -1,39 +1,64 @@
-import React from 'react';
+import React, {FC, useEffect} from 'react';
 import s from './Counter.module.css';
 import Button from "../components/button/Button";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../redux/redux-store";
-
+import {counterActions} from "./seetingsForCounter";
 
 type PropsType = {
-    currentValue: number
+
     incrValue: () => void
     resetValue: (resetNumber: number) => void
+    openModal: () => void
 }
 
-function Counter(props: PropsType) {
-    const error = useSelector<AppStateType, boolean>(state => state.counter.error)
+export const Counter: FC<PropsType> = ({incrValue, resetValue, openModal}) => {
+    const {setCurrentValue} = counterActions
 
-    const counterError = useSelector<AppStateType, boolean>(state => state.counter.error)
+    //hooks
+    const error = useSelector<AppStateType, boolean>(state => state.counter.error)
+    const currentValue = useSelector<AppStateType, number>(state => state.counter.value)
+    const dispatch = useDispatch()
+
+    const minValue = localStorage.getItem('minValue')
+    if (minValue) {
+        JSON.parse(minValue)
+    }
+
+
+    useEffect(() => {
+        dispatch(setCurrentValue(Number(minValue)))
+    }, [dispatch])
+
+
     const incrValueHandler = () => {
-        props.incrValue()
+        incrValue()
+        localStorage.setItem('1', '1')
     }
     const resetValueHandler = () => {
-        props.resetValue(0)
+        resetValue(0)
     }
+
+    function openModalHandler() {
+        openModal()
+    }
+
     return (
         <div className={s.counterBlock}>
-            <h1 className={s.title}>Easy Counter</h1>
+            <h1 className={s.title}>Counter</h1>
             <div className={s.screen}>
                 <span className={error ? s.error : ''}>
-                    {props.currentValue}
+                    {currentValue}
                 </span>
-
             </div>
             <div className={s.buttonsBlock}>
-                <Button title={'Incr'} callBack={incrValueHandler} disabled={counterError}/>
+                <Button title={'Incr'} callBack={incrValueHandler} disabled={error}/>
                 <Button title={'Reset'} callBack={resetValueHandler} disabled={false}/>
             </div>
+            <div className={s.settingsBlock}>
+                <button onClick={openModalHandler}>settings</button>
+            </div>
+
         </div>
     );
 }
